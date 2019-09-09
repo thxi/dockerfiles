@@ -10,7 +10,13 @@ build-rstudio:
 	docker pull rocker/rstudio
 
 run-rstudio:
-	docker run --rm \
+	docker run \
 	-p 1337:8787 \
 	-e PASSWORD=123 \
+	-v$(shell pwd):/home/rstudio \
+	--name rstudio \
 	rocker/rstudio
+
+run-built:
+	docker attach \
+	$(shell docker start rstudio)
